@@ -1,0 +1,248 @@
+[
+  {
+    "model": "theatre.genre",
+    "pk": 1,
+    "fields": { "name": "Comedy" }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 2,
+    "fields": { "name": "Drama" }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 3,
+    "fields": { "name": "Musical" }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 4,
+    "fields": { "name": "Horror" }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 5,
+    "fields": { "name": "Action" }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 6,
+    "fields": { "name": "Science Fiction" }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 1,
+    "fields": {
+      "first_name": "Emma",
+      "last_name": "Stone"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 2,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Gosling"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 3,
+    "fields": {
+      "first_name": "Scarlett",
+      "last_name": "Johansson"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 4,
+    "fields": {
+      "first_name": "Robert",
+      "last_name": "Downey Jr."
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 5,
+    "fields": {
+      "first_name": "Chris",
+      "last_name": "Hemsworth"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 6,
+    "fields": {
+      "first_name": "Gal",
+      "last_name": "Gadot"
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 1,
+    "fields": {
+      "name": "Main Hall",
+      "rows": 20,
+      "seats_in_row": 30
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 2,
+    "fields": {
+      "name": "Small Hall",
+      "rows": 10,
+      "seats_in_row": 15
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 3,
+    "fields": {
+      "name": "Experimental Stage",
+      "rows": 5,
+      "seats_in_row": 10
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 4,
+    "fields": {
+      "name": "Open Air",
+      "rows": 30,
+      "seats_in_row": 40
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 5,
+    "fields": {
+      "name": "VIP Hall",
+      "rows": 8,
+      "seats_in_row": 20
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 6,
+    "fields": {
+      "name": "Classic Stage",
+      "rows": 15,
+      "seats_in_row": 25
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 1,
+    "fields": {
+      "title": "La La Land",
+      "description": "A romantic musical about dreams and love.",
+      "genres": [1, 3],
+      "actors": [1, 2]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 2,
+    "fields": {
+      "title": "Avengers",
+      "description": "Heroes united to save the world.",
+      "genres": [5, 6],
+      "actors": [4, 5]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 3,
+    "fields": {
+      "title": "Black Widow",
+      "description": "A spy thriller featuring Natasha Romanoff.",
+      "genres": [2, 5],
+      "actors": [3]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 4,
+    "fields": {
+      "title": "Wonder Woman",
+      "description": "A tale of courage and heroism.",
+      "genres": [5, 6],
+      "actors": [6]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 5,
+    "fields": {
+      "title": "Phantom of the Opera",
+      "description": "A dramatic musical love story.",
+      "genres": [2, 3],
+      "actors": [1, 3]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 6,
+    "fields": {
+      "title": "Inception",
+      "description": "A sci-fi thriller about dreams within dreams.",
+      "genres": [4, 6],
+      "actors": [2, 4]
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 1,
+    "fields": {
+      "play": 1,
+      "theatre_hall": 1,
+      "show_time": "2024-12-25T19:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 2,
+    "fields": {
+      "play": 2,
+      "theatre_hall": 4,
+      "show_time": "2024-12-26T18:30:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 3,
+    "fields": {
+      "play": 3,
+      "theatre_hall": 2,
+      "show_time": "2024-12-27T20:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 4,
+    "fields": {
+      "play": 4,
+      "theatre_hall": 5,
+      "show_time": "2024-12-28T17:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 5,
+    "fields": {
+      "play": 5,
+      "theatre_hall": 3,
+      "show_time": "2024-12-29T19:30:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 6,
+    "fields": {
+      "play": 6,
+      "theatre_hall": 6,
+      "show_time": "2024-12-30T21:00:00Z"
+    }
+  }
+]
