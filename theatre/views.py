@@ -8,6 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.pagination import PageNumberPagination
 
 from theatre.models import (
     Genre,
@@ -17,7 +18,6 @@ from theatre.models import (
     Performance,
     Reservation,
 )
-from theatre.paginators import PlayAndReservationPaginator
 from theatre.serializers import (
     GenreSerializer,
     ActorSerializer,
@@ -32,6 +32,23 @@ from theatre.serializers import (
     PerformanceDetailSerializer,
     ReservationListSerializer,
 )
+
+
+class PlayAndReservationPaginator(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = "per_page"
+    max_page_size = 50
+
+    def get_paginated_response(self, data):
+        return Response(
+            {
+                "pages": self.page.paginator.num_pages,
+                "count": self.page.paginator.count,
+                "next": self.get_next_link(),
+                "previous": self.get_previous_link(),
+                "results": data,
+            }
+        )
 
 
 class GenreViewSet(
@@ -145,9 +162,11 @@ class PlayViewSet(
 
 
 class PerformanceViewSet(viewsets.ModelViewSet):
-    queryset = Performance.objects.select_related("play", "theatre_hall").annotate(
+    queryset = Performance.objects.select_related("play",
+                                                  "theatre_hall").annotate(
         tickets_available=(
-            F("theatre_hall__rows") * F("theatre_hall__seats_in_row") - Count("tickets")
+                F("theatre_hall__rows") * F(
+            "theatre_hall__seats_in_row") - Count("tickets")
         )
     )
     serializer_class = PerformanceSerializer
