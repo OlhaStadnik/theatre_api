@@ -18,7 +18,8 @@ class Command(BaseCommand):
             except OperationalError:
                 attempt += 1
                 self.stdout.write(
-                    f"Database unavailable, waiting 1 second... " f"(Attempt {attempt})"
+                    f"Database unavailable, "
+                    f"waiting 1 second... " f"(Attempt {attempt})"
                 )
                 time.sleep(1)
 
