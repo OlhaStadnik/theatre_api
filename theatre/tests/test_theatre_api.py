@@ -13,8 +13,7 @@ from theatre.models import (Play,
                             Performance,
                             TheatreHall,
                             Genre,
-                            Actor,
-                            Reservation)
+                            Actor )
 from theatre.serializers import PlayListSerializer, PlayDetailSerializer
 
 PLAY_URL = reverse("theatre:play-list")
