@@ -162,13 +162,13 @@ class PlayViewSet(
 
 
 class PerformanceViewSet(viewsets.ModelViewSet):
-    queryset = Performance.objects.select_related("play",
-                                                  "theatre_hall").annotate(
+    queryset = (Performance.objects.select_related("play", "theatre_hall")
+    .annotate(
         tickets_available=(
-                F("theatre_hall__rows") * F(
-            "theatre_hall__seats_in_row") - Count("tickets")
+            F("theatre_hall__rows") *
+            F("theatre_hall__seats_in_row") - Count("tickets")
         )
-    )
+    ))
     serializer_class = PerformanceSerializer
 
     def get_queryset(self):

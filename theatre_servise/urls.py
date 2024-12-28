@@ -4,7 +4,8 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
-    SpectacularRedocView)
+    SpectacularRedocView,
+)
 
 from theatre_servise import settings
 
@@ -13,8 +14,14 @@ urlpatterns = [
     path("api/theatre/", include("theatre.urls", namespace="theatres")),
     path("api/user/", include("user.urls", namespace="users")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    path("api/doc/swagger/",SpectacularSwaggerView.as_view(url_name="schema"),
-        name="swagger-ui",),
-    path("api/doc/redoc/", SpectacularRedocView.as_view(url_name="schema"),
-        name="redoc",),
+    path(
+        "api/doc/swagger/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/doc/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

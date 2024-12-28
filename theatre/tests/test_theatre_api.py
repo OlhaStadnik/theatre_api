@@ -9,7 +9,12 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 
-from theatre.models import Play, Performance, TheatreHall, Genre, Actor, Reservation
+from theatre.models import (Play,
+                            Performance,
+                            TheatreHall,
+                            Genre,
+                            Actor,
+                            Reservation)
 from theatre.serializers import PlayListSerializer, PlayDetailSerializer
 
 PLAY_URL = reverse("theatre:play-list")
@@ -29,7 +34,9 @@ def sample_play(**params):
 
 def sample_performance(**params):
     play = sample_play()
-    theatre_hall = TheatreHall.objects.create(name="Blue", rows=20, seats_in_row=20)
+    theatre_hall = TheatreHall.objects.create(name="Blue",
+                                              rows=20,
+                                              seats_in_row=20)
 
     defaults = {
         "show_time": "2022-06-02 14:00:00",
@@ -91,7 +98,8 @@ class UnauthenticatedReservationApiTests(TestCase):
         play1.genres.add(genre1)
         play2.genres.add(genre2)
 
-        res = self.client.get(PLAY_URL, {"genres": f"{genre1.id},{genre2.id}"})
+        res = self.client.get(PLAY_URL, {"genres": f"{genre1.id},"
+                                                   f"{genre2.id}"})
 
         plays = Play.objects.filter(genres__in=[genre1, genre2]).distinct()
         serializer = PlayListSerializer(plays, many=True)
@@ -114,7 +122,8 @@ class UnauthenticatedReservationApiTests(TestCase):
         play1.actors.add(actor1)
         play2.actors.add(actor2)
 
-        res = self.client.get(PLAY_URL, {"actors": f"{actor1.id},{actor2.id}"})
+        res = self.client.get(PLAY_URL, {"actors": f"{actor1.id},"
+                                                   f"{actor2.id}"})
 
         plays = Play.objects.filter(actors__in=[actor1, actor2]).distinct()
         serializer = PlayListSerializer(plays, many=True)
@@ -148,7 +157,8 @@ class UnauthenticatedReservationApiTests(TestCase):
     def test_retrieve_play_detail(self):
         play = sample_play()
         play.genres.add(Genre.objects.create(name="Genre"))
-        play.actors.add(Actor.objects.create(first_name="Actor", last_name="Last"))
+        play.actors.add(Actor.objects.create(first_name="Actor",
+                                             last_name="Last"))
 
         url = detail_url(play.id)
         res = self.client.get(url)
@@ -208,7 +218,8 @@ class AdminPayApiTests(TestCase):
         payload = {
             "title": "Spider Man",
             "genres": [genre1.id, genre2.id],
-            "description": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help.",
+            "description": "With Spider-Man's identity now revealed,"
+                           " Peter asks Doctor Strange for help.",
         }
         res = self.client.post(PLAY_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -225,7 +236,8 @@ class AdminPayApiTests(TestCase):
         payload = {
             "title": "Spider Man",
             "actors": [actor1.id, actor2.id],
-            "description": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help.",
+            "description": "With Spider-Man's identity now revealed, "
+                           "Peter asks Doctor Strange for help.",
         }
         res = self.client.post(PLAY_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -257,7 +269,8 @@ class PlayImageUploadTests(TestCase):
             img = Image.new("RGB", (10, 10))
             img.save(ntf, format="JPEG")
             ntf.seek(0)
-            res = self.client.post(url, {"image": ntf}, format="multipart")
+            res = self.client.post(url, {"image": ntf},
+                                   format="multipart")
         self.play.refresh_from_db()
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -267,7 +280,8 @@ class PlayImageUploadTests(TestCase):
     def test_upload_image_bad_request(self):
         """Test uploading an invalid image"""
         url = image_upload_url(self.play.id)
-        res = self.client.post(url, {"image": "not image"}, format="multipart")
+        res = self.client.post(url, {"image": "not image"},
+                               format="multipart")
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 

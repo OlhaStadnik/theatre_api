@@ -53,7 +53,6 @@ class Play(models.Model):
     actors = models.ManyToManyField(Actor, blank=True, related_name="plays")
     image = models.ImageField(null=True, upload_to=play_image_file_path)
 
-
     class Meta:
         ordering = ["title"]
 
