@@ -366,3 +366,4 @@ class PlayImageUploadTests(TestCase):
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertTrue(Play.objects.filter(id=play.id).exists())

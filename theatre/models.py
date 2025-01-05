@@ -105,16 +105,20 @@ class Ticket(models.Model):
             (row, "row", "rows"),
             (seat, "seat", "seats_in_row"),
         ]:
-            count_attrs = getattr(theatre_hall, theatre_hall_attr_name)
-            if not (1 <= ticket_attr_value <= count_attrs):
+            if ticket_attr_value < 1:
                 raise error_to_raise(
-                    {
-                        ticket_attr_name: f"{ticket_attr_name} "
-                        f"number must be in available range: "
-                        f"(1, {theatre_hall_attr_name}): "
-                        f"(1, {count_attrs})"
-                    }
+                    {ticket_attr_name: f"{ticket_attr_name.capitalize()} "
+                                       f"must be greater than 0."}
                 )
+
+            count_attrs = getattr(theatre_hall, theatre_hall_attr_name)
+            if ticket_attr_value > count_attrs:
+                raise error_to_raise(
+                    {ticket_attr_name: f"{ticket_attr_name.capitalize()} "
+                                       f"must be in the range: (1, "
+                                       f"{count_attrs})."}
+                )
+
 
     def clean(self):
         Ticket.validate_ticket(
