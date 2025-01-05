@@ -1,6 +1,7 @@
 import tempfile
 import os
-
+import os
+os.environ["DJANGO_SETTINGS_MODULE"] = "theatre_servise.settings"
 from PIL import Image
 from django.contrib.auth import get_user_model
 from django.test import TestCase
@@ -15,6 +16,8 @@ from theatre.models import (Play,
                             Genre,
                             Actor )
 from theatre.serializers import PlayListSerializer, PlayDetailSerializer
+
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "theatre_api.settings")
 
 PLAY_URL = reverse("theatre:play-list")
 PERFORMANCE_URL = reverse("theatre:performance-list")
