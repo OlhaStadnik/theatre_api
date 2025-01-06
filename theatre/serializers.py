@@ -44,9 +44,7 @@ class PlaySerializer(serializers.ModelSerializer):
 
 
 class PlayListSerializer(serializers.ModelSerializer):
-    genres = serializers.SlugRelatedField(many=True,
-                                          read_only=True,
-                                          slug_field="name")
+    genres = serializers.SlugRelatedField(many=True, read_only=True, slug_field="name")
     actors = serializers.SlugRelatedField(
         many=True,
         read_only=True,

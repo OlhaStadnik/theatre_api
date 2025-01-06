@@ -19,7 +19,8 @@ class Command(BaseCommand):
                 attempt += 1
                 self.stdout.write(
                     f"Database unavailable, "
-                    f"waiting 1 second... " f"(Attempt {attempt})"
+                    f"waiting 1 second... "
+                    f"(Attempt {attempt})"
                 )
                 time.sleep(1)
 

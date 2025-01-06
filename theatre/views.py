@@ -163,14 +163,9 @@ class PlayViewSet(
 
 
 class PerformanceViewSet(viewsets.ModelViewSet):
-    queryset = (
-        Performance.objects.select_related(
-            "play", "theatre_hall"
-        ).annotate(
-            tickets_available=(
-                F("theatre_hall__rows")
-                * F("theatre_hall__seats_in_row") - Count("tickets")
-            )
+    queryset = Performance.objects.select_related("play", "theatre_hall").annotate(
+        tickets_available=(
+            F("theatre_hall__rows") * F("theatre_hall__seats_in_row") - Count("tickets")
         )
     )
     serializer_class = PerformanceSerializer
@@ -187,8 +182,8 @@ class PerformanceViewSet(viewsets.ModelViewSet):
                 queryset = queryset.filter(show_time__date=date)
             except ValueError:
                 raise ValidationError(
-                    {"date": "Invalid date format, should be YYYY-MM-DD."})
-
+                    {"date": "Invalid date format, should be YYYY-MM-DD."}
+                )
 
         if play_id_str:
             queryset = queryset.filter(play_id=int(play_id_str))

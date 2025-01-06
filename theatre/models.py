@@ -4,7 +4,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'theatre_api.settings')
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "theatre_api.settings")
+
 
 class TheatreHall(models.Model):
     name = models.CharField(max_length=255)
@@ -42,7 +44,7 @@ def play_image_file_path(instance, filename):
     _, extension = os.path.splitext(filename)
     filename = f"{slugify(instance.title)}-{uuid.uuid4()}{extension}"
 
-    return os.path.join("uploads/play/", filename)
+    return os.path.join("uploads", "play", filename)
 
 
 class Play(models.Model):
@@ -70,15 +72,13 @@ class Performance(models.Model):
         ordering = ["-show_time"]
 
     def __str__(self):
-        return (f"{self.play.title} at {self.theatre_hall.name} "
-                f"on {self.show_time}")
+        return f"{self.play.title} at {self.theatre_hall.name} " f"on {self.show_time}"
 
 
 class Reservation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-        related_name="reservations"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reservations"
     )
 
     def __str__(self):
@@ -106,18 +106,21 @@ class Ticket(models.Model):
         ]:
             if ticket_attr_value < 1:
                 raise error_to_raise(
-                    {ticket_attr_name: f"{ticket_attr_name.capitalize()} "
-                                       f"must be greater than 0."}
+                    {
+                        ticket_attr_name: f"{ticket_attr_name.capitalize()} "
+                        f"must be greater than 0."
+                    }
                 )
 
             count_attrs = getattr(theatre_hall, theatre_hall_attr_name)
             if ticket_attr_value > count_attrs:
                 raise error_to_raise(
-                    {ticket_attr_name: f"{ticket_attr_name.capitalize()} "
-                                       f"must be in the range: (1, "
-                                       f"{count_attrs})."}
+                    {
+                        ticket_attr_name: f"{ticket_attr_name.capitalize()} "
+                        f"must be in the range: (1, "
+                        f"{count_attrs})."
+                    }
                 )
-
 
     def clean(self):
         Ticket.validate_ticket(

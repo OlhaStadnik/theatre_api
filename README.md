@@ -55,16 +55,29 @@ docker-compose exec app python manage.py migrate
 Create a superuser in the Docker container (optional):
 docker-compose exec app python manage.py createsuperuser
 
+## .env File
+
+Before running the project, you need to create a `.env` file in the root directory.
+This file should contain the following environment variables:
+
+DJANGO_SECRET_KEY
+DJANGO_ALLOWED_HOSTS
+DJANGO_DATABASE_URL
+DJANGO_POSTGRES_PASSWORD
+DJANGO_DEBUG
+
+Make sure to replace the values with your own credentials.
+
 ## Running Tests
 python manage.py test
 
 ## API Documentation
 The Theatre API provides endpoints for managing performances, users, and permissions. Below are some key endpoints:
 
-User Registration: POST /api/user/register/
-Token Obtain: POST /api/user/token/
-Token Refresh: POST /api/user/token/refresh/
-Get Current User: GET /api/user/me/
+User Registration: POST /api/users/register/
+Token Obtain: POST /api/users/token/
+Token Refresh: POST /api/users/token/refresh/
+Get Current User: GET /api/users/me/
 
 ##
 Using the Application
